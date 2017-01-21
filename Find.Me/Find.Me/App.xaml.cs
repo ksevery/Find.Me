@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Find.Me
@@ -13,12 +15,11 @@ namespace Find.Me
         {
             InitializeComponent();
 
-            MainPage = new Find.Me.MainPage();
+            MainPage = new Find.Me.MainMapPage();
         }
 
         protected override void OnStart()
         {
-            // Handle when your app starts
         }
 
         protected override void OnSleep()
