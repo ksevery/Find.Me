@@ -19,20 +19,26 @@ namespace Find.Me
         public MainMapPage()
         {
             RequestPermissions().Wait();
-            
+
             InitializeComponent();
 
             this.locator = CrossGeolocator.Current;
-            
-            try
-            {
-                var position = locator.GetPositionAsync(10000).Result;
-                map.MoveToRegion(MapSpan.FromCenterAndRadius(new Xamarin.Forms.Maps.Position(position.Latitude, position.Longitude), Distance.FromKilometers(5)));
-            }
-            catch (Exception ex)
-            {
-                var b = 5;
-            }
+
+            //this.locator.PositionChanged += Locator_PositionChanged;
+
+            this.SetInitialPosition();
+        }
+
+        private async Task SetInitialPosition()
+        {
+            var position = await locator.GetPositionAsync(10000);
+            map.MoveToRegion(MapSpan.FromCenterAndRadius(new Xamarin.Forms.Maps.Position(position.Latitude, position.Longitude), Distance.FromKilometers(5)));
+        }
+
+        private void Locator_PositionChanged(object sender, PositionEventArgs e)
+        {
+            var position = e.Position;
+            map.MoveToRegion(MapSpan.FromCenterAndRadius(new Xamarin.Forms.Maps.Position(position.Latitude, position.Longitude), Distance.FromKilometers(5)));
         }
 
         private async Task RequestPermissions()
