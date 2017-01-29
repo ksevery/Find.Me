@@ -4,6 +4,7 @@ using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,9 +25,11 @@ namespace Find.Me
 
             this.locator = CrossGeolocator.Current;
 
-            //this.locator.PositionChanged += Locator_PositionChanged;
+            this.locator.PositionChanged += Locator_PositionChanged;
 
             this.SetInitialPosition();
+
+            this.locator.StartListeningAsync(1000, 10);
         }
 
         private async Task SetInitialPosition()
@@ -37,8 +40,16 @@ namespace Find.Me
 
         private void Locator_PositionChanged(object sender, PositionEventArgs e)
         {
-            var position = e.Position;
-            map.MoveToRegion(MapSpan.FromCenterAndRadius(new Xamarin.Forms.Maps.Position(position.Latitude, position.Longitude), Distance.FromKilometers(5)));
+            try
+            {
+                var position = e.Position;
+                map.MoveToRegion(MapSpan.FromCenterAndRadius(new Xamarin.Forms.Maps.Position(position.Latitude, position.Longitude), map.VisibleRegion.Radius));
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            
         }
 
         private async Task RequestPermissions()
