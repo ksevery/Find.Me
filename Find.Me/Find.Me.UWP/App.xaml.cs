@@ -59,6 +59,7 @@ namespace Find.Me.UWP
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 Xamarin.Forms.Forms.Init(e);
+                Xamarin.FormsMaps.Init("BKgZfSWXCGu4LXrzuGmq~bC-Nssq3XQ89xYrZhK47MA~ArbZl9-hHviwnp6tXrpl1COYlh0UUTu7DldQ9B1akLh0YoXA5MxLw5xM-1RGlcaz");
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
