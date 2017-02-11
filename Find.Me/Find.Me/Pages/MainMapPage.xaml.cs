@@ -1,4 +1,5 @@
-﻿using Plugin.Geolocator;
+﻿using Java.Lang;
+using Plugin.Geolocator;
 using Plugin.Geolocator.Abstractions;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
@@ -27,9 +29,13 @@ namespace Find.Me
 
             this.locator.PositionChanged += Locator_PositionChanged;
 
-            this.SetInitialPosition();
+            this.locator.StartListeningAsync(500, 1).Wait();
 
-            this.locator.StartListeningAsync(1000, 10);
+            Task.Run(async () =>
+            {
+                Thread.Sleep(2000);
+                await SetInitialPosition();
+            });
         }
 
         private async Task SetInitialPosition()
@@ -45,7 +51,7 @@ namespace Find.Me
                 var position = e.Position;
                 map.MoveToRegion(MapSpan.FromCenterAndRadius(new Xamarin.Forms.Maps.Position(position.Latitude, position.Longitude), map.VisibleRegion.Radius));
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 Debug.WriteLine(ex.Message);
             }
