@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="hello">Hello World, Click Me!</string>
+	<string name="location_permission_message">Location permission must be provided in order to be able to use the app!</string>
 	<string name="app_name">Find.Me.Xamarin.Droid</string>
 </resources>
