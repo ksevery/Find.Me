@@ -28,7 +28,10 @@ namespace Find.Me.Xamarin.Droid
     [Activity(Label = "Find.Me.Xamarin.Droid", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity, IConnectionCallbacks, IOnConnectionFailedListener, Android.Gms.Location.ILocationListener
     {
+        private const float InitialZoomLevel = 20;
         private const int RequestLocationPermissionId = 1;
+        private const long FastestRequestInterval = 100;
+        private const long LocationRequestInterval = 500;
         private readonly string[] PermissionsLocation =
         {
           Manifest.Permission.AccessCoarseLocation,
@@ -105,7 +108,7 @@ namespace Find.Me.Xamarin.Droid
                     this.map.MyLocationEnabled = true;
                     this.map.UiSettings.ZoomControlsEnabled = true;
                     this.map.UiSettings.ZoomGesturesEnabled = true;
-                    var cameraUpdate = CameraUpdateFactory.NewLatLngZoom(new LatLng(location.Latitude, location.Longitude), 20);
+                    var cameraUpdate = CameraUpdateFactory.NewLatLngZoom(new LatLng(location.Latitude, location.Longitude), InitialZoomLevel);
                     this.map.MoveCamera(cameraUpdate);
                 }
             }
@@ -120,9 +123,9 @@ namespace Find.Me.Xamarin.Droid
 
             mapFrag.GetMapAsync(mapReady);
 
-            locRequest.SetPriority(100);
-            locRequest.SetFastestInterval(100);
-            locRequest.SetInterval(500);
+            locRequest.SetPriority(LocationRequest.PriorityHighAccuracy);
+            locRequest.SetFastestInterval(FastestRequestInterval);
+            locRequest.SetInterval(LocationRequestInterval);
             
             LocationServices.FusedLocationApi.RequestLocationUpdates(apiClient, locRequest, this);
             
