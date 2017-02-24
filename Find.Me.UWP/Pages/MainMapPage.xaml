@@ -19,7 +19,7 @@
             <ColumnDefinition Width="50" />
         </Grid.ColumnDefinitions>
 
-        <maps:MapControl Grid.RowSpan="3" Grid.ColumnSpan="2" x:Name="mainMap" MapServiceToken="BKgZfSWXCGu4LXrzuGmq~bC-Nssq3XQ89xYrZhK47MA~ArbZl9-hHviwnp6tXrpl1COYlh0UUTu7DldQ9B1akLh0YoXA5MxLw5xM-1RGlcaz" ZoomInteractionMode="GestureAndControl" ZoomLevel="16" RotateInteractionMode="GestureAndControl" Loaded="mainMap_Loaded"/>
+        <maps:MapControl Grid.RowSpan="3" Grid.ColumnSpan="2" x:Name="mainMap" MapServiceToken="BKgZfSWXCGu4LXrzuGmq~bC-Nssq3XQ89xYrZhK47MA~ArbZl9-hHviwnp6tXrpl1COYlh0UUTu7DldQ9B1akLh0YoXA5MxLw5xM-1RGlcaz" ZoomInteractionMode="GestureAndControl" ZoomLevel="16" RotateInteractionMode="GestureAndControl" Loaded="mainMap_Loaded" CenterChanged="mainMap_CenterChanged"/>
     </Grid>
     
 </Page>
